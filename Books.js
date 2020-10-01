@@ -1,47 +1,66 @@
-const library = (() => {
-    let books = [{id= "11", name:"half of a yellow son" } , {id:"12",name:"There was a country"} , {id:"13", name:"purple hibiscus" }, {id:"14", name:"Enemy lines" } , {} , {} , {} ,];
-    let removedBooks = [];
+function bookApp() {
+    let books = [{id: 11, name:"half of a yellow son" } , {id:12,name:"The enemy called average"} , {id:13, name: "power of a praying wife"}, {id:14, name:"purple hibiscus" }, {id:15, name:"Enemy lines" } , {id:16, name:"spirit controlled temperament"} , {id:17, name:"Good morning Holy spirit"} , {id:18, name:"Eloquent javascript"} ,{id:19, name:"The enemy called average"}, {id:20, name:"a woman's prime"}];
 
-    function onBorrowBook (id) {
-        let availableBooks = books.filter((_, index) => index != id);
-        let removedBook = books.filter((_, index) => index == id);
-        if(removedBook[11] != undefined) {
-          books = availableBooks;
-          removedBooks.push(removedBook[11]);
-          return `\n>>> YOU HAVE SUCCESSFULLY BORROWED  ${bookBorrowed[0]}`
-        }else{
-          return `\n*** Oops! YOU ENTERED AN INVALID BOOK INDEX ***`;
+   let removedBooks = [];
+
+     function onBorrowBook (id) {
+      for (let i = 0; i < books.length; i += 1) {
+           let exist = false;
+           for (let j = 0; j < removedBooks.length; j += 1) {
+             if (books[i].id === removedBooks[j].id) {
+               exist = true;
+             }
+           }
+           if (books[i].name && !exist) {
+              removedBooks.push({
+               name: `${books[i].name}`,
+               id: books[i].id,
+             });
+           }
+         }
+       }
+
+     function onReturnBook(id) {
+        for(let j = 0; j < removedBooks.length; j+= 1) {
+           let exist = false;
+           for(let i = 0; i < books.length; i +=1) {
+               if(removedBooks[j].id === books[i].id) {
+                   exist = true;
+               }
+           }
+           if (removedBooks[j].name && !exist) {
+               books.push({
+                   name: `${removedBooks[j].name}`,
+                   id: removedBooks[j].id,
+               });
+           }
         }
-    }
+     }
+   
 
-    function onReturnBook(id) {
-      const book = removedBook[id];
-      const return = removedBooks.filter((_, index) => index != id);
-      if(removedBooks.includes(book)) {
-          borrowedBooks = return ;
-          availableBooks.push(book)
-          return `\n>>> WELL DONE! YOU HAVE RETURNED ${book} TO THE STORE`
-        }else{
-          return `\n*** Oops! YOU Entered AN INVALID BOOK INDEX ***`;
-        }
-    }
-    
-    
-    function ShowAvailableBooks() {
-        return books;
-    }
-    
-    function ShowBorrowedBooks() {
-        return removedBooks;
-    }
+  function showAvailableBooks() {
+       return books;
+   }
+   
+   function showBorrowedBooks() {
+       return removedBooks;
+   }
 
-    return {
-        allBooks: onShowAvailableBooks,
-        borrow: onBorrowBook,
-        retrieve: onReturnBook,
-        borrowedBooks: onShowBorrowedBooks
-    }
-})();
+   return {
+       allBooks: showAvailableBooks,
+       borrow: onBorrowBook,
+       retrieve: onReturnBook,
+       borrowedBooks: showBorrowedBooks
+   };
 
-console.log(Library. allBooks());
+}
 
+var books = bookApp();
+
+console.log(books.allBooks());
+
+console.log(books.borrow('15'));
+
+console.log(books.borrowedBooks());
+
+console.log(books.retrieve(15));
