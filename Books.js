@@ -17,8 +17,9 @@ function bookApp() {
                id: books[i].id,
              });
            }
-         }
-       }
+           return books.length;
+        }
+     }
 
      function onReturnBook(id) {
         for(let j = 0; j < removedBooks.length; j+= 1) {
@@ -34,6 +35,7 @@ function bookApp() {
                    id: removedBooks[j].id,
                });
            }
+           return books.length;
         }
      }
    
@@ -55,12 +57,12 @@ function bookApp() {
 
 }
 
-var books = bookApp();
+var libBooks = bookApp();
 
-console.log(books.allBooks());
+console.log(libBooks.allBooks());
 
-console.log(books.borrow('15'));
+console.log(libBooks.borrow(15));
 
-console.log(books.borrowedBooks());
+console.log(libBooks.borrowedBooks());
 
-console.log(books.retrieve(15));
+console.log(libBooks.retrieve(15));
